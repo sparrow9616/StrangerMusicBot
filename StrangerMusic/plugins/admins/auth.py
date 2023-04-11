@@ -1,23 +1,16 @@
-#
-# Copyright (C) 2021-2022 by TeamYukki@Github, < https://github.com/TeamYukki >.
-#
-# This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TeamYukki/YukkiMusicBot/blob/master/LICENSE >
-#
-# All rights reserved.
+
 
 from pyrogram import filters
 from pyrogram.types import Message
 
 from config import BANNED_USERS, adminlist
 from strings import get_command
-from YukkiMusic import app
-from YukkiMusic.utils.database import (delete_authuser, get_authuser,
+from StrangerMusic import app
+from StrangerMusic.utils.database import (delete_authuser, get_authuser,
                                        get_authuser_names,
                                        save_authuser)
-from YukkiMusic.utils.decorators import AdminActual, language
-from YukkiMusic.utils.formatters import int_to_alpha
+from StrangerMusic.utils.decorators import AdminActual, language
+from StrangerMusic.utils.formatters import int_to_alpha
 
 # Command
 AUTH_COMMAND = get_command("AUTH_COMMAND")

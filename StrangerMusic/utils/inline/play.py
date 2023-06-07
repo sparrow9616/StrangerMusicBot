@@ -47,7 +47,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
 
                 text=_["S_B_5"],
 
-                url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                url=f"https://t.me/Saykkunobot?startgroup=true",
 
             )
 
@@ -83,7 +83,7 @@ def telegram_markup_timer(_, chat_id, played, dur):
         [
             InlineKeyboardButton(
                 text=_["S_B_5"],
-                url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                url=f"https://t.me/Saykkunobot?startgroup=true",
             )
         ],
     ]
@@ -111,7 +111,7 @@ def stream_markup(_, videoid, chat_id):
 
                 text=_["S_B_5"],
 
-                url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                url=f"https://t.me/Saykkunobot?startgroup=true",
 
             )
 

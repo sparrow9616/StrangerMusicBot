@@ -10,7 +10,7 @@ from youtubesearchpython.__future__ import VideosSearch
 
 from config import YOUTUBE_IMG_URL
 
-MUSIC_BOT_NAME ="Nullver"
+MUSIC_BOT_NAME = "Nullver"
 
 
 def changeImageSize(maxWidth, maxHeight, image):

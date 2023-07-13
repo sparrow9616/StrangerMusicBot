@@ -10,6 +10,7 @@ from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
+from config import adminlist
 from config import BANNED_USERS, lyrical
 from strings import get_command
 from StrangerMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
@@ -27,6 +28,7 @@ from StrangerMusic.utils.inline.play import (livestream_markup,
 from StrangerMusic.utils.inline.playlist import botplaylist_markup
 from StrangerMusic.utils.logger import play_logs
 from StrangerMusic.utils.stream.stream import stream
+from StrangerMusic.misc import SUDOERS
 
 # Command
 PLAY_COMMAND = get_command("PLAY_COMMAND")

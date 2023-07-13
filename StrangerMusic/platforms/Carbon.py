@@ -95,9 +95,10 @@ class CarbonAPI:
             params["widthAdjustment"] = self.width_adjustment
             try:
                 request = await ses.post(
-                    "https://carbonara.vercel.app/api/cook",
+                    "https://carbonara.solopov.dev/api/cook",
                     json=params,
                 )
+                #https://carbonara.vercel.app/api/cook
             except client_exceptions.ClientConnectorError:
                 raise UnableToFetchCarbon("Can not reach the Host!")
             resp = await request.read()

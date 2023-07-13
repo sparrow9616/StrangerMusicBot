@@ -84,7 +84,8 @@ class CarbonAPI:
             params = {
                 "code": text,
             }
-            params["backgroundColor"] = random.choice(colour)
+            #params["backgroundColor"] = random.choice(colour)
+            params["backgroundColor"] = "#818589"
             params["theme"] = random.choice(themes)
             params["dropShadow"] = self.drop_shadow
             params["dropShadowOffsetY"] = self.drop_shadow_offset

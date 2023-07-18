@@ -12,6 +12,7 @@ heroku3
 lyricsgenius
 multicolorcaptcha
 motor
+numpy
 pillow
 psutil
 pymongo[srv]

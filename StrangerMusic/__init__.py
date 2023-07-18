@@ -1,23 +1,40 @@
 
 
-import glob
-from os.path import dirname, isfile
+from StrangerMusic.core.bot import StrangerBot
+from StrangerMusic.core.dir import dirr
+from StrangerMusic.core.git import git
+from StrangerMusic.core.userbot import Userbot
+from StrangerMusic.misc import dbb, heroku, sudo
 
+from .logging import LOGGER
 
-def __list_all_modules():
-    work_dir = dirname(__file__)
-    mod_paths = glob.glob(work_dir + "/*/*.py")
+# Directories
+dirr()
 
-    all_modules = [
-        (((f.replace(work_dir, "")).replace("/", "."))[:-3])
-        for f in mod_paths
-        if isfile(f)
-        and f.endswith(".py")
-        and not f.endswith("__init__.py")
-    ]
+# Check Git Updates
+git()
 
-    return all_modules
+# Initialize Memory DB
+dbb()
 
+# Heroku APP
+heroku()
 
-ALL_MODULES = sorted(__list_all_modules())
-__all__ = ALL_MODULES + ["ALL_MODULES"]
+# Load Sudo Users from DB
+sudo()
+
+# Bot Client
+app = StrangerBot()
+
+# Assistant Client
+userbot = Userbot()
+
+from .platforms import *
+
+YouTube = YouTubeAPI()
+Carbon = CarbonAPI()
+Spotify = SpotifyAPI()
+Apple = AppleAPI()
+Resso = RessoAPI()
+SoundCloud = SoundAPI()
+Telegram = TeleAPI()

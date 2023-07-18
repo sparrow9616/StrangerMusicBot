@@ -157,7 +157,6 @@ lyrical = {}
 chatstats = {}
 userstats = {}
 clean = {}
-
 autoclean = []
 
 

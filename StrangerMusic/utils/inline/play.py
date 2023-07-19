@@ -1,7 +1,7 @@
 import random
-##import config
 from StrangerMusic.core.bot import bot_username
 from pyrogram.types import InlineKeyboardButton
+from StrangerMusic import app
 
 selections = [
     "▁▄▂▇▄▅▄▅▃",
@@ -19,8 +19,6 @@ selections = [
     "▃▅▂▅▃▇▄▅▃",
 ]
 
-if not bot_username:
-    bot_username="Saykkunobot"
 
 ## After Edits with Timer Bar
 
@@ -65,7 +63,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
 
                 text=_["S_B_5"],
 
-                url=f"https://t.me/{bot_username}?startgroup=true",
+                url=f"https://t.me/{app.username}?startgroup=true",
             ),
             # InlineKeyboardButton(
             #    text="10↻",
@@ -103,7 +101,7 @@ def telegram_markup_timer(_, chat_id, played, dur):
         [
             InlineKeyboardButton(
                 text=_["S_B_5"],
-                url=f"https://t.me/{bot_username}?startgroup=true",
+                url=f"https://t.me/{app.username}?startgroup=true",
             )
         ],
     ]
@@ -140,7 +138,7 @@ def stream_markup(_, videoid, chat_id):
 
                 text=_["S_B_5"],
 
-                url=f"https://t.me/{bot_username}?startgroup=true",
+                url=f"https://t.me/{app.username}?startgroup=true",
             )
 
         ],
@@ -171,7 +169,7 @@ def telegram_markup(_, chat_id):
 
                 text=_["S_B_5"],
 
-                url=f"https://t.me/{bot_username}?startgroup=true",
+                url=f"https://t.me/{app.username}?startgroup=true",
 
             )
 

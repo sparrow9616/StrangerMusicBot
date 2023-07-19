@@ -57,20 +57,20 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
         ],
         [
 
-            InlineKeyboardButton(
-                text="⟲10",
-                callback_data=f"ADMIN 1|{chat_id}",
-            ),
+            #InlineKeyboardButton(
+            #    text="⟲10",
+            #    callback_data=f"ADMIN 1|{chat_id}",
+            #),
             InlineKeyboardButton(
 
                 text=_["S_B_5"],
 
                 url=f"https://t.me/{bot_username}?startgroup=true",
             ),
-            InlineKeyboardButton(
-                text="10↻",
-                callback_data=f"ADMIN 2|{chat_id}",
-            ),
+            # InlineKeyboardButton(
+            #    text="10↻",
+             #   callback_data=f"ADMIN 2|{chat_id}",
+           # ),
         ]
     ]
     return buttons

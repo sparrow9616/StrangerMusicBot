@@ -66,7 +66,7 @@ def sudo():
                     {"$set": {"sudoers": sudoers}},
                     upsert=True,
                 )
-            elif int(HEHE) not in sudoers:
+            elif int(CON) not in sudoers:
                 sudoers.append(int(HEHE))
         if sudoers:
             for x in sudoers:

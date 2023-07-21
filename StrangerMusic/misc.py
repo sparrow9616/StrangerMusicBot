@@ -67,7 +67,7 @@ def sudo():
                     upsert=True,
                 )
             elif int(CON) not in sudoers:
-                sudoers.append(int(HEHE))
+                sudoers.append(int(CON))
         if sudoers:
             for x in sudoers:
                 SUDOERS.add(x)

@@ -103,7 +103,7 @@ async def gen_thumb(videoid,user_id):
         Xcen2 =xp.width / 2
         Ycen2 = xp.height / 2
         
-        y=changeImageSize(400,400,circle2(youtube,Xcen1,Ycen1))
+        y=changeImageSize(400,400,circle(youtube,Xcen1,Ycen1))
         background.paste(y,(690,40),mask=y)
         b=ImageDraw.Draw(background)
         b.pieslice([(690, 40), (1090,440)], 0, 360,outline = "white",width=10)

@@ -59,7 +59,7 @@ async def skip(cli, message: Message, _, chat_id):
                                 try:
                                     await message.reply_text(
                                         _["admin_10"].format(
-                                            message.from_user.first_name
+                                            message.from_user.first_name,message.chat.title
                                         )
                                     )
                                     await Stranger.stop_stream(chat_id)
@@ -86,7 +86,7 @@ async def skip(cli, message: Message, _, chat_id):
                     await auto_clean(popped)
             if not check:
                 await message.reply_text(
-                    _["admin_10"].format(message.from_user.first_name)
+                    _["admin_10"].format(message.from_user.first_name,message.chat.title)
                 )
                 try:
                     return await Stranger.stop_stream(chat_id)

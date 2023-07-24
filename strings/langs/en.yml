@@ -14,7 +14,7 @@ tg_2 : "ꜰᴀɪʟᴇᴅ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜᴇ ᴍᴇᴅɪᴀ �
 
 # Core - Call.py
 call_1 : "ʙᴏᴛ ʀᴇǫᴜɪʀᴇs **ᴀᴅᴍɪɴ** ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ.\n\nᴅɪsᴀʙʟᴇ ᴄʜᴀɴɴᴇʟ ᴘʟᴀʏᴍᴏᴅᴇ ᴠɪᴀ : /playmode"
-call_2 : "{0} ᴀssɪsᴛᴀɴᴛ ɪs ʙᴀɴɴᴇᴅ ɪɴ ᴛʜɪs ᴄʜᴀᴛ.\n\n**ɪᴅ :** `{1}`\n**ɴᴀᴍᴇ :** {2}\n**ᴜsᴇʀɴᴀᴍᴇ :** @{3}\n\nᴘʟᴇᴀsᴇ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ ᴀɴᴅ ᴛʀʏ ᴘʟᴀʏɪɴɢ ᴀɢᴀɪɴ..."
+call_2 : "ᴀssɪsᴛᴀɴᴛ ɪs ʙᴀɴɴᴇᴅ ɪɴ ᴛʜɪs ᴄʜᴀᴛ.\n\n**ɪᴅ :** `{1}`\n**ɴᴀᴍᴇ :** {2}\n**ᴜsᴇʀɴᴀᴍᴇ :** @{3}\n\nᴘʟᴇᴀsᴇ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ ᴀɴᴅ ᴛʀʏ ᴘʟᴀʏɪɴɢ ᴀɢᴀɪɴ..."
 call_3 : "» ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀᴛ.\n\n**ʀᴇᴀsᴏɴ :** `{0}`"
 call_4 : "ʙᴏᴛ ʀᴇǫᴜɪʀᴇs **ɪɴᴠɪᴛᴇ ᴜsᴇʀs ᴠɪᴀ ʟɪɴᴋ** ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ɪɴᴠɪᴛᴇ ᴀssɪsᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀᴛ ɢʀᴏᴜᴘ."
 call_5 : "➻ ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ...\n\n» ɪɴᴠɪᴛɪɴɢ {0} ᴛᴏ {1}."
@@ -178,7 +178,6 @@ playlist_12 : "ꜰᴀɪʟᴇᴅ ᴛᴏ ᴅᴇʟᴇᴛᴇᴅ ʏᴏᴜʀ ᴛʀᴀ�
 playlist_13 : "ᴅᴇʟᴇᴛᴇᴅ ʏᴏᴜʀ ᴡʜᴏʟᴇ ᴘʟᴀʏʟɪsᴛs ꜰʀᴏᴍ ᴛʜᴇ sᴇʀᴠᴇʀ. "
 playlist_14 : "**ᴀʀᴇ ʏᴏᴜ sᴜʀᴇ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴇʟᴇᴛᴇ ʏᴏᴜʀ ᴡʜᴏʟᴇ ᴘʟᴀʏʟɪsᴛ ?**\n\nʏᴏᴜ'ʟʟ ʟᴏsᴛ ʏᴏᴜʀ ᴘʟᴀʏʟɪsᴛ ᴀɴᴅ ᴛʜɪs ᴄᴀɴ'ᴛ ʙᴇ ʀᴇᴄᴏᴠᴇʀᴇᴅ ʟᴀᴛᴇʀ."
 playlist_15 : "[ᴄʜᴇᴄᴋᴏᴜᴛ ᴡʜᴏʟᴇ ᴘʟᴀʏʟɪsᴛ]({0})"
-playlist_15 : "[Checkout Whole Playlist]({0})"
 playlist_16 : "Queued Playlist:"
 playlist_17 : "Queued Position-"
 playlist_18 : "[Checkout Whole Queued Playlist]({0})\n\nLast Queued Position : **{1}**"
@@ -357,13 +356,14 @@ block_6 : "ɢᴇᴛᴛɪɴɢ ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs ʟɪsᴛ...ᴘʟᴇ�
 block_7 : "**ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs:**\n\n"
 
 #Blacklist Chats
-black_1 : "**ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ᴍᴇssᴀɢᴇ ɪɴ {0}  ᴄʜᴀᴛs ᴡɪᴛʜ {1} ᴘɪɴs ꜰʀᴏᴍ ʙᴏᴛ.**"
-broad_2 : "sᴛᴀʀᴛᴇᴅ ᴀssɪsᴛᴀɴᴛ ʙʀᴏᴀᴅᴄᴀsᴛ..."
-broad_3 : "**ᴀssɪsᴛᴀɴᴛ ʙʀᴏᴀᴅᴄᴀsᴛ:\n\n"
-broad_4 : "ᴀssɪsᴛᴀɴᴛ {0} ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ɪɴ {1} ᴄʜᴀᴛs\n"
-broad_5 : "**ᴜsᴀɢᴇ**:\n/broadcast [MESSAGE] or [Reply to a Message]"
-broad_6 : "ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ʙʀᴏᴀᴅᴄᴀsᴛ."
-broad_7 : "**ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ᴍᴇssᴀɢᴇ ᴛᴏ {0} ᴜsᴇʀs.**"
+black_1 : "**Usage:**\n/blacklistchat [CHAT_ID]"
+black_2 : "Chat is already blacklisted."
+black_3 : "Chat has been successfully blacklisted"
+black_4 : "**Usage:**\n/whitelistchat [CHAT_ID]"
+black_5 : "Chat is already whitelisted."
+black_6 : "Chat has been successfully whitelisted"
+black_7 : "**Blacklisted Chats:**\n\n"
+black_8 : "No Blacklisted Chats"
 
 #videolimit
 vid_1 : "**Usage:**\n/set_video_limit [Number of chats allowed] or [Disable]"

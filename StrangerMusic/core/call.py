@@ -200,7 +200,7 @@ class Call(PyTgCalls):
                 raise AssistantErr(_["call_1"])
             if get.status == "banned" or get.status == "kicked":
                 raise AssistantErr(
-                    _["call_2"].format(userbot.username, userbot.id)
+                    _["call_2"].format(userbot.id,userbot.name,userbot.username)
                 )
         except UserNotParticipant:
             chat = await app.get_chat(chat_id)
@@ -233,7 +233,7 @@ class Call(PyTgCalls):
                     except Exception as e:
                         raise AssistantErr(e)
                     m = await app.send_message(
-                        original_chat_id, _["call_5"]
+                        original_chat_id, _["call_5"].formate(userbot.name)
                     )
                     if invitelink.startswith("https://t.me/+"):
                         invitelink = invitelink.replace(

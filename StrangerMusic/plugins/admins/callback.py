@@ -218,6 +218,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         check = db.get(chat_id)
         txt = f"Skipped by {mention}"
         popped = None
+        gtit=check[0]["mystic"]["chat"]["title"]
         try:
             popped = check.pop(0)
             if popped:
@@ -228,7 +229,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     f"Skipped by {mention}",reply_markup=close_markup(_)
                 )
                 await CallbackQuery.message.reply_text(
-                    _["admin_10"].format(mention,message.chat.title),reply_markup=close_markup(_)
+                    _["admin_10"].format(mention,gtit),reply_markup=close_markup(_)
                 )
                 try:
                     return await Stranger.stop_stream(chat_id)
@@ -240,7 +241,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     f"Skipped by {mention}",reply_markup=close_markup(_)
                 )
                 await CallbackQuery.message.reply_text(
-                    _["admin_10"].format(mention,message.chat.title),reply_markup=close_markup(_)
+                    _["admin_10"].format(mention,gtit),reply_markup=close_markup(_)
                 )
                 return await Stranger.stop_stream(chat_id)
             except:

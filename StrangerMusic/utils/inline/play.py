@@ -2,6 +2,7 @@ import random
 from StrangerMusic.core.bot import bot_username
 from pyrogram.types import InlineKeyboardButton
 from StrangerMusic import app
+from StrangerMusic.utils.formatters import time_to_seconds
 
 selections = [
     "▁▄▂▇▄▅▄▅▃",
@@ -19,12 +20,37 @@ selections = [
     "▃▅▂▅▃▇▄▅▃",
 ]
 
+def sparrow(playedd,totlel):
+    badboy=(time_to_seconds(playedd) / time_to_seconds(totlel))*100
+    if 0<badboy<=10:
+        return "✄─·─·─·─·─·─·─·─·─·─"
+    elif 10<badboy<=20:
+        return "-ˋˏ✄─·─·─·─·─·─·─·─·─"
+    elif 20<badboy<=30:
+        return "-ˋˏ-ˋˏ✄─·─·─·─·─·─·─·─"
+    elif 30<badboy<=40:
+        return "-ˋˏ-ˋˏ-ˋˏ✄─·─·─·─·─·─·─"
+    elif 40<badboy<=50:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄─·─·─·─·─·─"
+    elif 50<badboy<=60:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄─·─·─·─·─"
+    elif 60<badboy<=70:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄─·─·─·─"
+    elif 70<badboy<=80:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄─·─·─·─"
+    elif 80<badboy<=90:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄─·─·─"
+    elif 90<badboy<=100:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄─·"
+    else:
+        return "-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ-ˋˏ✄·"
 
 ## After Edits with Timer Bar
 
 
 def stream_markup_timer(_, videoid, chat_id, played, dur):
-    bar = random.choice(selections)
+    #bar = random.choice(selections)
+    bar = sparrow(played,dur)
     buttons = [
         [
             
@@ -75,7 +101,8 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
 
 
 def telegram_markup_timer(_, chat_id, played, dur):
-    bar = random.choice(selections)
+    #bar = random.choice(selections)
+    bar = sparrow(played,dur)
     buttons = [
         [
             InlineKeyboardButton(

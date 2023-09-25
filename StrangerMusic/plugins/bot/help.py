@@ -24,7 +24,6 @@ HELP_COMMAND = get_command("HELP_COMMAND")
 @app.on_message(
     filters.command(HELP_COMMAND)
     & filters.private
-    & ~filters.edited
     & ~BANNED_USERS
 )
 @app.on_callback_query(
@@ -68,7 +67,6 @@ async def helper_private(
 @app.on_message(
     filters.command(HELP_COMMAND)
     & filters.group
-    & ~filters.edited
     & ~BANNED_USERS
 )
 @LanguageStart

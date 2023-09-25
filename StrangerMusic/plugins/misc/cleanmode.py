@@ -179,7 +179,6 @@ async def braodcast_message(client, message, _):
                         continue
                     await asyncio.sleep(flood_time)
                 except Exception as e:
-                    print(e)
                     continue
             text += _["broad_4"].format(num, sent)
         try:

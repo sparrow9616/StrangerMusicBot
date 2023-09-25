@@ -218,7 +218,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         check = db.get(chat_id)
         txt = f"Skipped by {mention}"
         popped = None
-        gtit=check[0]["mystic"]["chat"]["title"]
+        gtit=check[0]["mystic"].chat.title
         try:
             popped = check.pop(0)
             if popped:

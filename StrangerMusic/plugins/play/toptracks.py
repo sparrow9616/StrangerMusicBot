@@ -111,7 +111,6 @@ async def server_to_play(client, CallbackQuery, _):
     try:
         details = await loop.run_in_executor(None, get_stats)
     except Exception as e:
-        print(e)
         return
     try:
         await stream(

@@ -31,7 +31,6 @@ loop = asyncio.get_running_loop()
 @app.on_message(
     filters.command(get_command("START_COMMAND"))
     & filters.private
-    & ~filters.edited
     & ~BANNED_USERS
 )
 @LanguageStart
@@ -95,7 +94,6 @@ async def start_comm(client, message: Message, _):
                     None, get_stats
                 )
             except Exception as e:
-                print(e)
                 return
             thumbnail = await YouTube.thumbnail(videoid, True)
             await m.delete()
@@ -183,7 +181,7 @@ async def start_comm(client, message: Message, _):
         try:
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
-        except:
+        except :
             OWNER = None
         out = private_panel(_, app.username, OWNER)
         if config.START_IMG_URL:
@@ -217,7 +215,6 @@ async def start_comm(client, message: Message, _):
 @app.on_message(
     filters.command(get_command("START_COMMAND"))
     & filters.group
-    & ~filters.edited
     & ~BANNED_USERS
 )
 @LanguageStart

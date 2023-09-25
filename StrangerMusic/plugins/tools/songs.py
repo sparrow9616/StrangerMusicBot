@@ -23,7 +23,6 @@ SONG_COMMAND = get_command("SONG_COMMAND")
 @app.on_message(
     filters.command(SONG_COMMAND)
     & filters.group
-    & ~filters.edited
     & ~BANNED_USERS
 )
 @language
@@ -47,7 +46,6 @@ async def song_commad_group(client, message: Message, _):
 @app.on_message(
     filters.command(SONG_COMMAND)
     & filters.private
-    & ~filters.edited
     & ~BANNED_USERS
 )
 @language
@@ -181,7 +179,6 @@ async def song_helper_cb(client, CallbackQuery, _):
                 vidid, True
             )
         except Exception as e:
-            print(e)
             return await CallbackQuery.edit_message_text(_["song_7"])
         keyboard = InlineKeyboard()
         # AVC Formats Only [ Stranger MUSIC BOT ]
@@ -269,7 +266,6 @@ async def song_download_cb(client, CallbackQuery, _):
         try:
             await CallbackQuery.edit_message_media(media=med)
         except Exception as e:
-            print(e)
             return await mystic.edit_text(_["song_10"])
         os.remove(file_path)
     elif stype == "audio":
@@ -298,6 +294,5 @@ async def song_download_cb(client, CallbackQuery, _):
         try:
             await CallbackQuery.edit_message_media(media=med)
         except Exception as e:
-            print(e)
             return await mystic.edit_text(_["song_10"])
         os.remove(filename)

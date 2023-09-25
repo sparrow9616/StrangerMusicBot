@@ -39,7 +39,6 @@ STATS_COMMAND = get_command("STATS_COMMAND")
 @app.on_message(
     filters.command(STATS_COMMAND)
     & filters.group
-    & ~filters.edited
     & ~BANNED_USERS
     & SUDOERS
 )
@@ -58,7 +57,6 @@ async def stats_global(client, message: Message, _):
 @app.on_message(
     filters.command(GSTATS_COMMAND)
     & filters.group
-    & ~filters.edited
     & ~BANNED_USERS
     & SUDOERS
 
@@ -99,7 +97,6 @@ async def gstats_global(client, message: Message, _):
     try:
         videoid, co = await loop.run_in_executor(None, get_stats)
     except Exception as e:
-        print(e)
         return
     (
         title,
@@ -208,7 +205,6 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
             None, get_stats
         )
     except Exception as e:
-        print(e)
         return
     limit = 0
     if what in ["Users", "Chats"]:

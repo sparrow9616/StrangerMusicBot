@@ -1,4 +1,5 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.enums import ChatMemberStatus
 
 from config import adminlist
 from strings import get_string
@@ -108,8 +109,11 @@ def AdminActual(mystic):
                 )
             except:
                 return
-            if not member.privileges.can_manage_video_chats:
-                return await message.reply(_["general_5"])
+            if member.status == ChatMemberStatus.ADMINISTRATOR:
+                if not member.privileges.can_manage_video_chats:
+                    return await message.reply(_["general_5"])
+            else:
+                return await message.reply_text("This command is for admins")        
         return await mystic(client, message, _)
 
     return wrapper

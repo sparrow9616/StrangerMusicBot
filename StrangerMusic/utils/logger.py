@@ -1,3 +1,5 @@
+
+from pyrogram.enums import ParseMode
 from config import LOG, LOG_GROUP_ID
 from StrangerMusic import app
 from StrangerMusic.utils.database import is_on_off

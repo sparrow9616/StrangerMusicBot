@@ -1,5 +1,5 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.enums import ChatMemberStatus
+from pyrogram.enums import ChatMemberStatus, ChatType
 
 from config import adminlist
 from strings import get_string
@@ -132,7 +132,7 @@ def ActualAdminCB(mystic):
             _ = get_string(language)
         except:
             _ = get_string("en")
-        if CallbackQuery.message.chat.type == "private":
+        if CallbackQuery.message.chat.type == ChatType.PRIVATE:
             return await mystic(client, CallbackQuery, _)
         is_non_admin = await is_nonadmin_chat(
             CallbackQuery.message.chat.id

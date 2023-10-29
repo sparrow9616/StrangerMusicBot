@@ -6,6 +6,7 @@ ffmpeg-python
 gitpython
 hachoir
 heroku3
+httpx
 lyricsgenius
 motor==3.0.0
 numpy
@@ -13,7 +14,7 @@ pillow
 psutil
 py-tgcalls==0.9.7
 pykeyboard
-pyrogram==2.0.106
+pyrogram
 python-dotenv
 pyyaml==5.3.1
 requests

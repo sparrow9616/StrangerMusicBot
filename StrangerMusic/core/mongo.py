@@ -31,5 +31,10 @@ if config.MONGO_DB_URI is None:
 else:
     _mongo_async_ = _mongo_client_(config.MONGO_DB_URI)
     _mongo_sync_ = MongoClient(config.MONGO_DB_URI)
-    mongodb = _mongo_async_[database]
-    pymongodb = _mongo_sync_[database]
+    database_names = _mongo_sync_.list_database_names()
+    if "Stranger" in database_names:
+        mongodb = _mongo_async_.Stranger
+        pymongodb = _mongo_sync_.Stranger
+    else:
+        mongodb = _mongo_async_[database]
+        pymongodb = _mongo_sync_[database]

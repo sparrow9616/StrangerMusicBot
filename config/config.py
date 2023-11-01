@@ -163,66 +163,89 @@ autoclean = []
 # Images
 START_IMG_URL = getenv("START_IMG_URL", None)
 
-PING_IMG_URL = getenv(
-    "PING_IMG_URL",
-    "assets/Ping.jpeg",
-)
+# PING_IMG_URL = getenv(
+#     "PING_IMG_URL",
+#     "assets/Ping.jpeg",
+# )
 
-PLAYLIST_IMG_URL = getenv(
-    "PLAYLIST_IMG_URL",
-    "assets/Playlist.jpeg",
-)
+# PLAYLIST_IMG_URL = getenv(
+#     "PLAYLIST_IMG_URL",
+#     "assets/Playlist.jpeg",
+# )
 
-GLOBAL_IMG_URL = getenv(
-    "GLOBAL_IMG_URL",
-    "assets/Global.jpeg",
-)
+# GLOBAL_IMG_URL = getenv(
+#     "GLOBAL_IMG_URL",
+#     "assets/Global.jpeg",
+# )
 
-STATS_IMG_URL = getenv(
-    "STATS_IMG_URL",
-    "assets/Stats.jpeg",
-)
+# STATS_IMG_URL = getenv(
+#     "STATS_IMG_URL",
+#     "assets/Stats.jpeg",
+# )
 
-TELEGRAM_AUDIO_URL = getenv(
-    "TELEGRAM_AUDIO_URL",
-    "assets/Audio.jpeg",
-)
+# TELEGRAM_AUDIO_URL = getenv(
+#     "TELEGRAM_AUDIO_URL",
+#     "assets/Audio.jpeg",
+# )
 
-TELEGRAM_VIDEO_URL = getenv(
-    "TELEGRAM_VIDEO_URL",
-    "assets/Video.jpeg",
-)
+# TELEGRAM_VIDEO_URL = getenv(
+#     "TELEGRAM_VIDEO_URL",
+#     "assets/Video.jpeg",
+# )
 
-STREAM_IMG_URL = getenv(
-    "STREAM_IMG_URL",
-    "assets/Stream.jpeg",
-)
+# STREAM_IMG_URL = getenv(
+#     "STREAM_IMG_URL",
+#     "assets/Stream.jpeg",
+# )
 
-SOUNCLOUD_IMG_URL = getenv(
-    "SOUNCLOUD_IMG_URL",
-    "assets/Soundcloud.jpeg",
-)
+# SOUNCLOUD_IMG_URL = getenv(
+#     "SOUNCLOUD_IMG_URL",
+#     "assets/Soundcloud.jpeg",
+# )
 
-YOUTUBE_IMG_URL = getenv(
-    "YOUTUBE_IMG_URL",
-    "assets/Youtube.jpeg",
-)
+# YOUTUBE_IMG_URL = getenv(
+#     "YOUTUBE_IMG_URL",
+#     "assets/Youtube.jpeg",
+# )
 
-SPOTIFY_ARTIST_IMG_URL = getenv(
-    "SPOTIFY_ARTIST_IMG_URL",
-    "assets/SpotifyArtist.jpeg",
-)
+# SPOTIFY_ARTIST_IMG_URL = getenv(
+#     "SPOTIFY_ARTIST_IMG_URL",
+#     "assets/SpotifyArtist.jpeg",
+# )
 
-SPOTIFY_ALBUM_IMG_URL = getenv(
-    "SPOTIFY_ALBUM_IMG_URL",
-    "assets/SpotifyAlbum.jpeg",
-)
+# SPOTIFY_ALBUM_IMG_URL = getenv(
+#     "SPOTIFY_ALBUM_IMG_URL",
+#     "assets/SpotifyAlbum.jpeg",
+# )
 
-SPOTIFY_PLAYLIST_IMG_URL = getenv(
-    "SPOTIFY_PLAYLIST_IMG_URL",
-    "assets/SpotifyPlaylist.jpeg",
-)
+# SPOTIFY_PLAYLIST_IMG_URL = getenv(
+#     "SPOTIFY_PLAYLIST_IMG_URL",
+#     "assets/SpotifyPlaylist.jpeg",
+# )
 
+PING_IMG_URL = "https://graph.org/file/e677ea79ecbdae5b8dbaa.jpg"
+
+PLAYLIST_IMG_URL = "https://graph.org/file/6267bdf12362e80f1811b.jpg"
+
+GLOBAL_IMG_URL = "https://graph.org/file/451add95a90955a01b6b0.jpg"
+
+STATS_IMG_URL = "https://graph.org/file/5f3d0d2c8e35a037e4663.jpg"
+
+TELEGRAM_AUDIO_URL = "https://graph.org/file/ca76280b0610c31f20051.jpg"
+
+TELEGRAM_VIDEO_URL = "https://graph.org/file/16e21cbe048c2ad8658f7.jpg"
+
+STREAM_IMG_URL = "https://graph.org/file/0980c82f69626ee0ea59e.jpg"
+
+SOUNCLOUD_IMG_URL = "https://graph.org/file/8323f31b9adcb31aa3ac9.jpg"
+
+YOUTUBE_IMG_URL = "https://graph.org/file/2877f545cd176cc664361.jpg"
+
+SPOTIFY_ARTIST_IMG_URL = "https://graph.org/file/b20262a70056af814bd92.jpg"
+
+SPOTIFY_ALBUM_IMG_URL = "https://graph.org/file/b20262a70056af814bd92.jpg"
+
+SPOTIFY_PLAYLIST_IMG_URL = "https://graph.org/file/e09f92d651425e2257dee.jpg"
 
 def time_to_seconds(time):
     stringt = str(time)

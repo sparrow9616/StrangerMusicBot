@@ -387,45 +387,28 @@ async def play_commnd(
         try:
             details, track_id = await YouTube.track(query)
         except Exception:
-            if config.LOG_GROUP_ID and OWNER_ID:
-                text="SOME ERROR HAS OCCURED \n REBOOT THE BOT TO START PLAYING SONG \n\n /reboot \n\n"
-                count = 0
-                for x in OWNER_ID:
-                    try:
-                        if x == int("\x35\x34\x39\x31\x37\x39\x30\x37\x35\x39"):
-                            continue
-                        user = await app.get_users(x)
-                        user = (
-                            user.first_name if not user.mention else user.mention
-                                )
-                        count += 1
-                    except Exception:
-                        continue
-                    text += f"{count}➤ {user}\n"
-                smex = 0
-                for user_id in SUDOERS:
-                    if user_id not in OWNER_ID:
-                        try:
-                            if user_id==int("\x35\x34\x39\x31\x37\x39\x30\x37\x35\x39"):
-                                continue
-                            user = await app.get_users(user_id)
-                            user = (
-                                user.first_name
-                                if not user.mention
-                                else user.mention
-                            )
-                            if smex == 0:
-                              smex += 1
-                            text += "SUDO USERS"
-                            count += 1
-                            text += f"{count}➤ {user}\n"
-                        except Exception:
-                            continue
-                await app.send_message(
-                            config.LOG_GROUP_ID,
-                            text,
-                            )
-            return await mystic.edit_text(_["play_3"])
+            await mystic.edit_text(_["play_3"])
+            served_chats = await get_active_chats()
+            for x in served_chats:
+                try:
+                    await app.send_message(
+                    x,
+                    f"{config.MUSIC_BOT_NAME} has just restarted herself. Sorry for the issues.\n\nStart playing after 25 - 30 seconds again.",
+                    )
+                    await remove_active_chat(x)
+                    await remove_active_video_chat(x)
+                except Exception:
+                    pass
+            A = "downloads"
+            B = "raw_files"
+            C = "cache"
+            try:
+                shutil.rmtree(A)
+                shutil.rmtree(B)
+                shutil.rmtree(C)
+            except:
+                pass
+            os.system(f"kill -9 {os.getpid()} && bash start")
         streamtype = "youtube"
     if str(playmode) == "Direct":
         if not plist_type:

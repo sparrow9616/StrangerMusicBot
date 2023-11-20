@@ -1,5 +1,6 @@
-
-
+import asyncio
+import os
+import shutil
 import random
 import string
 from ast import ExceptHandler
@@ -10,7 +11,7 @@ from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
-from config import adminlist,OWNER_ID
+from config import adminlist,OWNER_ID,MUSIC_BOT_NAME
 from config import BANNED_USERS, lyrical
 from strings import get_command
 from StrangerMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
@@ -18,7 +19,7 @@ from StrangerMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
 from StrangerMusic.core.call import Stranger
 from StrangerMusic.utils import seconds_to_min, time_to_seconds
 from StrangerMusic.utils.channelplay import get_channeplayCB
-from StrangerMusic.utils.database import is_video_allowed
+from StrangerMusic.utils.database import (get_active_chats, is_video_allowed,remove_active_chat, remove_active_video_chat)
 from StrangerMusic.utils.decorators.language import languageCB
 from StrangerMusic.utils.decorators.play import PlayWrapper
 from StrangerMusic.utils.formatters import formats
@@ -386,6 +387,7 @@ async def play_commnd(
             query = query.replace("-v", "")
         try:
             details, track_id = await YouTube.track(query)
+            raise Exception
         except Exception:
             await mystic.edit_text(_["play_3"])
             served_chats = await get_active_chats()

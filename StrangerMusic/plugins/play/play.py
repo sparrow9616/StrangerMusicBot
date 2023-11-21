@@ -387,7 +387,6 @@ async def play_commnd(
             query = query.replace("-v", "")
         try:
             details, track_id = await YouTube.track(query)
-            raise Exception
         except Exception:
             await mystic.edit_text(_["play_3"])
             served_chats = await get_active_chats()

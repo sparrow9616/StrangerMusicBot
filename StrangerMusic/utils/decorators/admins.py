@@ -147,6 +147,10 @@ def ActualAdminCB(mystic):
                 return await CallbackQuery.answer(
                     _["general_5"], show_alert=True
                 )
+            if a.status == ChatMemberStatus.MEMBER:
+                return await CallbackQuery.answer(
+                    _["general_5"], show_alert=True
+                )
             if not a.privileges.can_manage_video_chats:
                 if CallbackQuery.from_user.id not in SUDOERS:
                     token = await int_to_alpha(

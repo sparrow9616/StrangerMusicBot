@@ -9,6 +9,7 @@ from pyrogram import filters
 from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
                             Message)
 from pytgcalls.exceptions import NoActiveGroupCall
+from pyrogram.errors import (MessageIdInvalid)
 
 import config
 from config import adminlist,OWNER_ID,MUSIC_BOT_NAME
@@ -56,10 +57,16 @@ async def play_commnd(
           if message.from_user.id not in SUDOERS:
                   admins = adminlist.get(message.chat.id)
                   if not admins:
-                    return await message.reply_text(_["admin_18"])
+                    try:
+                        return await message.reply_text(_["admin_18"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["admin_18"])
                   else:
-                      if message.from_user.id not in admins:
-                          return await message.reply_text(_["admin_19"])
+                        if message.from_user.id not in admins:
+                            try:
+                                return await message.reply_text(_["admin_19"])
+                            except MessageIdInvalid:
+                                return await app.send_message(msgChatId,_["admin_19"])
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
@@ -67,6 +74,7 @@ async def play_commnd(
     slider = None
     plist_type = None
     spotify = None
+    msgChatId=message.chat.id
     user_id = message.from_user.id
     user_name = message.from_user.first_name
     audio_telegram = (
@@ -133,7 +141,10 @@ async def play_commnd(
         return
     elif video_telegram:
         if not await is_video_allowed(message.chat.id):
-            return await mystic.edit_text(_["play_3"])
+            try:
+                return await mystic.edit_text(_["play_3"])
+            except MessageIdInvalid:
+                    return await app.send_message(msgChatId,_["play_3"])
         if message.reply_to_message.document:
             try:
                 ext = video_telegram.file_name.split(".")[-1]
@@ -146,7 +157,10 @@ async def play_commnd(
                     _["play_8"].format(f"{' | '.join(formats)}")
                 )
         if video_telegram.file_size > config.TG_VIDEO_FILESIZE_LIMIT:
-            return await mystic.edit_text(_["play_9"])
+            try:
+                return await mystic.edit_text(_["play_9"])
+            except MessageIdInvalid:
+                return await app.send_message(msgChatId,_["play_9"])
         file_path = await Telegram.get_filepath(video=video_telegram)
         if await Telegram.download(_, message, mystic, file_path):
             message_link = await Telegram.get_link(message)
@@ -178,7 +192,10 @@ async def play_commnd(
                     if ex_type == "AssistantErr"
                     else _["general_3"].format(ex_type)
                 )
-                return await mystic.edit_text(err)
+                try:
+                    return await mystic.edit_text(err)
+                except MessageIdInvalid:
+                    return await app.send_message(msgChatId,err)
             return await mystic.delete()
         return
     elif url:
@@ -191,7 +208,10 @@ async def play_commnd(
                         message.from_user.id,
                     )
                 except Exception as e:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "playlist"
                 plist_type = "yt"
                 if "&" in url:
@@ -204,7 +224,10 @@ async def play_commnd(
                 try:
                     details, track_id = await YouTube.track(url)
                 except Exception as e:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_11"].format(
@@ -224,7 +247,10 @@ async def play_commnd(
                 try:
                     details, track_id = await Spotify.track(url)
                 except Exception:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"]) 
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_11"].format(
@@ -234,7 +260,10 @@ async def play_commnd(
                 try:
                     details, plist_id = await Spotify.playlist(url)
                 except Exception:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "playlist"
                 plist_type = "spplay"
                 img = config.SPOTIFY_PLAYLIST_IMG_URL
@@ -245,7 +274,10 @@ async def play_commnd(
                 try:
                     details, plist_id = await Spotify.album(url)
                 except Exception:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "playlist"
                 plist_type = "spalbum"
                 img = config.SPOTIFY_ALBUM_IMG_URL
@@ -256,7 +288,10 @@ async def play_commnd(
                 try:
                     details, plist_id = await Spotify.artist(url)
                 except Exception:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
@@ -264,13 +299,19 @@ async def play_commnd(
                     message.from_user.first_name
                 )
             else:
-                return await mystic.edit_text(_["play_17"])
+                try:
+                    return await mystic.edit_text(_["play_17"])
+                except MessageIdInvalid:
+                    return await app.send_message(msgChatId,_["play_17"])
         elif await Apple.valid(url):
             if "album" in url:
                 try:
                     details, track_id = await Apple.track(url)
                 except Exception:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_11"].format(
@@ -281,7 +322,10 @@ async def play_commnd(
                 try:
                     details, plist_id = await Apple.playlist(url)
                 except Exception:
-                    return await mystic.edit_text(_["play_3"])
+                    try:
+                        return await mystic.edit_text(_["play_3"])
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,_["play_3"])
                 streamtype = "playlist"
                 plist_type = "apple"
                 cap = _["play_13"].format(
@@ -289,7 +333,10 @@ async def play_commnd(
                 )
                 img = url
             else:
-                return await mystic.edit_text(_["play_16"])
+                try:
+                    return await mystic.edit_text(_["play_16"])
+                except MessageIdInvalid:
+                    return await app.send_message(msgChatId,_["play_16"])
         elif await Resso.valid(url):
             try:
                 details, track_id = await Resso.track(url)
@@ -304,7 +351,10 @@ async def play_commnd(
             try:
                 details, track_path = await SoundCloud.download(url)
             except Exception:
-                return await mystic.edit_text(_["play_3"])
+                try:
+                    return await mystic.edit_text(_["play_3"])
+                except MessageIdInvalid:
+                    return await app.send_message(msgChatId,err)
             duration_sec = details["duration_sec"]
             if duration_sec > config.DURATION_LIMIT:
                 return await mystic.edit_text(
@@ -332,7 +382,10 @@ async def play_commnd(
                     if ex_type == "AssistantErr"
                     else _["general_3"].format(ex_type)
                 )
-                return await mystic.edit_text(err)
+                try:
+                    return await mystic.edit_text(err)
+                except MessageIdInvalid:
+                    return await app.send_message(msgChatId,err)
             return await mystic.delete()
         else:
             try:
@@ -377,10 +430,15 @@ async def play_commnd(
     else:
         if len(message.command) < 2:
             buttons = botplaylist_markup(_)
-            return await mystic.edit_text(
-                _["playlist_1"],
-                reply_markup=InlineKeyboardMarkup(buttons),
-            )
+            try:
+                return await mystic.edit_text(
+                    _["playlist_1"],
+                    reply_markup=InlineKeyboardMarkup(buttons),
+                )
+            except MessageIdInvalid:
+                return await app.send_message(msgChatId,
+                                              _["playlist_1"],
+                                            reply_markup=InlineKeyboardMarkup(buttons),)
         slider = True
         query = message.text.split(None, 1)[1]
         if "-v" in query:
@@ -418,12 +476,19 @@ async def play_commnd(
                     details["duration_min"]
                 )
                 if duration_sec > config.DURATION_LIMIT:
-                    return await mystic.edit_text(
-                        _["play_6"].format(
-                            config.DURATION_LIMIT_MIN,
-                            details["duration_min"],
+                    try:
+                        return await mystic.edit_text(
+                            _["play_6"].format(
+                                config.DURATION_LIMIT_MIN,
+                                details["duration_min"],
+                            )
                         )
-                    )
+                    except MessageIdInvalid:
+                        return await app.send_message(msgChatId,
+                                                      _["play_6"].format(
+                                config.DURATION_LIMIT_MIN,
+                                details["duration_min"],
+                            ))
             else:
                 buttons = livestream_markup(
                     _,
@@ -458,7 +523,10 @@ async def play_commnd(
                 if ex_type == "AssistantErr"
                 else _["general_3"].format(ex_type)
             )
-            return await mystic.edit_text(err)
+            try:
+                return await mystic.edit_text(err)
+            except MessageIdInvalid:
+                return await app.send_message(msgChatId,err)
         await mystic.delete()
         return await play_logs(message, streamtype=streamtype)
     else:

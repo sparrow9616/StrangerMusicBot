@@ -291,7 +291,6 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
-                "proxy": "socks5://127.0.0.1:9150/",
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
@@ -311,7 +310,6 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
-                "proxy": "socks5://127.0.0.1:9150/",
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
@@ -333,7 +331,6 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": formats,
                 "outtmpl": fpath,
-                "proxy":"socks5://127.0.0.1:9150/",
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,

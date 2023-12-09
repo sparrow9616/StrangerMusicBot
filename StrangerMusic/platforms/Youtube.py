@@ -292,7 +292,6 @@ class YouTubeAPI:
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "nocheckcertificate": True,
-                "geo_bypass_ip_block":"34.162.112.73"
                 "quiet": True,
                 "no_warnings": True,
             }
@@ -310,7 +309,6 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
-                "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
@@ -331,7 +329,6 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": formats,
                 "outtmpl": fpath,
-                "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
@@ -346,7 +343,6 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": format_id,
                 "outtmpl": fpath,
-                "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,

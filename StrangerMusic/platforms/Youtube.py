@@ -291,8 +291,8 @@ class YouTubeAPI:
             ydl_optssx = {
                 "format": "bestaudio/best",
                 "outtmpl": "downloads/%(id)s.%(ext)s",
-                "geo_bypass": True,
                 "nocheckcertificate": True,
+                "geo_bypass_ip_block":"34.162.112.73"
                 "quiet": True,
                 "no_warnings": True,
             }

@@ -57,7 +57,7 @@ class Userbot(Client):
             try:
                 #await self.one.join_chat("")
                 #await self.one.join_chat("")
-                await self.one.join_chat("Stranger_Support")
+                await self.one.join_chat("Saykkunomusic")
             except:
                 pass
             assistants.append(1)
@@ -88,7 +88,7 @@ class Userbot(Client):
             try:
                 #await self.one.join_chat("")
                 #await self.one.join_chat("")
-                await self.one.join_chat("Stranger_Support")
+                await self.one.join_chat("Saykkunomusic")
             except:
                 pass
             assistants.append(2)
@@ -119,7 +119,7 @@ class Userbot(Client):
             try:
                 #await self.one.join_chat("")
                 #await self.one.join_chat("")
-                await self.one.join_chat("Stranger_Support")
+                await self.one.join_chat("Saykkunomusic")
             except:
                 pass
             assistants.append(3)
@@ -150,7 +150,7 @@ class Userbot(Client):
             try:
                 #await self.one.join_chat("")
                 #await self.one.join_chat("")
-                await self.one.join_chat("Stranger_Support")
+                await self.one.join_chat("Saykkunomusic")
             except:
                 pass
             assistants.append(4)
@@ -181,7 +181,7 @@ class Userbot(Client):
             try:
                 #await self.one.join_chat("")
                 #await self.one.join_chat("")
-                await self.one.join_chat("Stranger_Support")
+                await self.one.join_chat("Saykkunomusic")
             except:
                 pass
             assistants.append(5)

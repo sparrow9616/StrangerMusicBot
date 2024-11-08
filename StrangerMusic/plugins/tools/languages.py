@@ -53,7 +53,7 @@ async def langs_command(client, message: Message, _):
         reply_markup=keyboard,
     )
 
-
+# check_this
 @app.on_callback_query(filters.regex("LG") & ~BANNED_USERS)
 @languageCB
 async def lanuagecb(client, CallbackQuery, _):

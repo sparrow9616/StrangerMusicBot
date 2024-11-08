@@ -9,6 +9,7 @@ from pyrogram.errors import MessageIdInvalid
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 from pytgcalls.__version__ import __version__ as pytgver
 
+from StrangerMusic.logging import LOGGER
 import config
 from config import BANNED_USERS, MUSIC_BOT_NAME
 from strings import get_command
@@ -97,6 +98,7 @@ async def gstats_global(client, message: Message, _):
     try:
         videoid, co = await loop.run_in_executor(None, get_stats)
     except Exception as e:
+        LOGGER(__name__).warning(e)
         return
     (
         title,
@@ -205,6 +207,7 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
             None, get_stats
         )
     except Exception as e:
+        LOGGER(__name__).warning(e)
         return
     limit = 0
     if what in ["Users", "Chats"]:
@@ -243,7 +246,7 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("TopOverall") & ~BANNED_USERS)
 @languageCB
-async def overall_stats(client, CallbackQuery, _):
+async def overall_stats(client, CallbackQuery:CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     what = callback_data.split(None, 1)[1]
     if what != "s":
@@ -301,7 +304,7 @@ async def overall_stats(client, CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("bot_stats_sudo"))
 @languageCB
-async def overall_stats(client, CallbackQuery, _):
+async def overall_stats(client, CallbackQuery:CallbackQuery, _):
     if CallbackQuery.from_user.id not in SUDOERS:
         return await CallbackQuery.answer(
             "Only for Sudo Users", show_alert=True
@@ -347,10 +350,6 @@ async def overall_stats(client, CallbackQuery, _):
     storage = call["storageSize"] / 1024
     objects = call["objects"]
     collections = call["collections"]
-    status = db.command("serverStatus")
-    query = status["opcounters"]["query"]
-    mongouptime = status["uptime"] / 86400
-    mongouptime = str(mongouptime)
     served_chats = len(await get_served_chats())
     served_users = len(await get_served_users())
     total_queries = await get_queries()
@@ -378,12 +377,10 @@ async def overall_stats(client, CallbackQuery, _):
 **Blocked Users:** {blocked} 
 **Sudo Users:** {sudoers} 
 
-**Mongo Uptime:** {mongouptime[:4]} Days
 **Total DB Size:** {datasize[:6]} Mb
 **Total DB Storage:** {storage} Mb
 **Total DB Collections:** {collections}
 **Total DB Keys:** {objects}
-**Total DB Queries:** `{query}`
 **Total Bot Queries:** `{total_queries} `
     """
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
@@ -402,7 +399,7 @@ async def overall_stats(client, CallbackQuery, _):
     & ~BANNED_USERS
 )
 @languageCB
-async def back_buttons(client, CallbackQuery, _):
+async def back_buttons(client, CallbackQuery:CallbackQuery, _):
     try:
         await CallbackQuery.answer()
     except:

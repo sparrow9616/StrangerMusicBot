@@ -1,6 +1,7 @@
 import asyncio
 import speedtest
 from pyrogram import filters
+from pyrogram.types import Message
 from strings import get_command
 from StrangerMusic import app
 from StrangerMusic.misc import SUDOERS
@@ -26,7 +27,7 @@ def testspeed(m):
 
 
 @app.on_message(filters.command(SPEEDTEST_COMMAND) & SUDOERS)
-async def speedtest_function(client, message):
+async def speedtest_function(client, message:Message):
     m = await message.reply_text("Running Speed test")
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(None, testspeed, m)

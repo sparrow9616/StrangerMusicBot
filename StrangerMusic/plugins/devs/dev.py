@@ -11,7 +11,7 @@ from time import time
 
 from pyrogram import filters
 from pyrogram.types import (InlineKeyboardButton,
-                            InlineKeyboardMarkup, Message)
+                            InlineKeyboardMarkup, Message,CallbackQuery)
 
 from StrangerMusic import app
 from StrangerMusic.misc import SUDOERS
@@ -37,7 +37,7 @@ async def edit_or_reply(msg: Message, **kwargs):
     & ~filters.forwarded
     & ~filters.via_bot
 )
-async def executor(client, message):
+async def executor(client, message:Message):
     if len(message.command) < 2:
         return await edit_or_reply(
             message, text="__Nigga Give me some command to execute.__"
@@ -115,13 +115,13 @@ async def executor(client, message):
 
 
 @app.on_callback_query(filters.regex(r"runtime"))
-async def runtime_func_cq(_, cq):
+async def runtime_func_cq(_, cq:CallbackQuery):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
 
 
 @app.on_callback_query(filters.regex("forceclose"))
-async def forceclose_command(_, CallbackQuery):
+async def forceclose_command(_, CallbackQuery:CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     query, user_id = callback_request.split("|")
@@ -145,7 +145,7 @@ async def forceclose_command(_, CallbackQuery):
     & ~filters.forwarded
     & ~filters.via_bot
 )
-async def shellrunner(client, message):
+async def shellrunner(client, message:Message):
     if len(message.command) < 2:
         return await edit_or_reply(
             message, text="**Usage:**\n/sh git pull"

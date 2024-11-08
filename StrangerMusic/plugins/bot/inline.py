@@ -2,16 +2,16 @@
 
 from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup,
-                            InlineQueryResultPhoto)
+                            InlineQueryResultPhoto,InlineQuery)
 from youtubesearchpython.__future__ import VideosSearch
 
 from config import BANNED_USERS, MUSIC_BOT_NAME
 from StrangerMusic import app
 from StrangerMusic.utils.inlinequery import answer
 
-
+# show error are there in line no> 28 ....Index error list index out of range ... this inline is used by @bot_username and seraching any song ......inline must be enabled in bot father setting
 @app.on_inline_query(~BANNED_USERS)
-async def inline_query_handler(client, query):
+async def inline_query_handler(client, query:InlineQuery):
     text = query.query.strip().lower()
     answers = []
     if text.strip() == "":

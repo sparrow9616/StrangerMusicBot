@@ -55,7 +55,7 @@ async def settings_mar(client, message: Message, _):
     filters.regex("settings_helper") & ~BANNED_USERS
 )
 @languageCB
-async def settings_cb(client, CallbackQuery, _):
+async def settings_cb(client, CallbackQuery:CallbackQuery, _):
     try:
         await CallbackQuery.answer(_["set_cb_8"])
     except:
@@ -130,7 +130,7 @@ async def gen_buttons_vid(_, aud):
     & ~BANNED_USERS
 )
 @languageCB
-async def without_Admin_rights(client, CallbackQuery, _):
+async def without_Admin_rights(client, CallbackQuery:CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     if command == "SEARCHANSWER":
         try:
@@ -264,7 +264,7 @@ async def without_Admin_rights(client, CallbackQuery, _):
     & ~BANNED_USERS
 )
 @ActualAdminCB
-async def aud_vid_cb(client, CallbackQuery, _):
+async def aud_vid_cb(client, CallbackQuery:CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     try:
         await CallbackQuery.answer(_["set_cb_6"], show_alert=True)
@@ -312,7 +312,7 @@ async def aud_vid_cb(client, CallbackQuery, _):
     & ~BANNED_USERS
 )
 @ActualAdminCB
-async def playmode_ans(client, CallbackQuery, _):
+async def playmode_ans(client, CallbackQuery:CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     if command == "CHANNELMODECHANGE":
         is_non_admin = await is_nonadmin_chat(
@@ -404,7 +404,7 @@ async def playmode_ans(client, CallbackQuery, _):
     filters.regex(pattern=r"^(AUTH|AUTHLIST)$") & ~BANNED_USERS
 )
 @ActualAdminCB
-async def authusers_mar(client, CallbackQuery, _):
+async def authusers_mar(client, CallbackQuery:CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     if command == "AUTHLIST":
         _authusers = await get_authuser_names(
@@ -495,7 +495,7 @@ async def authusers_mar(client, CallbackQuery, _):
     & ~BANNED_USERS
 )
 @ActualAdminCB
-async def cleanmode_mark(client, CallbackQuery, _):
+async def cleanmode_mark(client, CallbackQuery:CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     try:
         await CallbackQuery.answer(_["set_cb_6"], show_alert=True)

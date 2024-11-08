@@ -4,7 +4,7 @@
 from typing import Union
 
 from pyrogram import filters, types
-from pyrogram.types import InlineKeyboardMarkup, Message
+from pyrogram.types import InlineKeyboardMarkup, Message ,CallbackQuery
 
 from config import BANNED_USERS
 from strings import get_command, get_string, helpers
@@ -30,7 +30,7 @@ HELP_COMMAND = get_command("HELP_COMMAND")
     filters.regex("settings_back_helper") & ~BANNED_USERS
 )
 async def helper_private(
-    client: app, update: Union[types.Message, types.CallbackQuery]
+    client, update: Union[types.Message, types.CallbackQuery]
 ):
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
@@ -79,7 +79,7 @@ async def help_com_group(client, message: Message, _):
 
 @app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
 @languageCB
-async def helper_cb(client, CallbackQuery, _):
+async def helper_cb(client, CallbackQuery:CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     cb = callback_data.split(None, 1)[1]
     keyboard = help_back_markup(_)

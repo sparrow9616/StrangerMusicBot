@@ -7,6 +7,7 @@ from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.raw import types
+from pyrogram.types import Message,ChatPrivileges
 
 import config
 from config import adminlist, chatstats, clean, userstats
@@ -23,6 +24,7 @@ from StrangerMusic.utils.database import (get_active_chats,
                                        update_user_top)
 from StrangerMusic.utils.decorators.language import language
 from StrangerMusic.utils.formatters import alpha_to_int
+from StrangerMusic import LOGGER
 
 BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
 AUTO_DELETE = config.CLEANMODE_DELETE_MINS
@@ -62,7 +64,7 @@ async def clean_mode(client, update, users, chats):
 
 @app.on_message(filters.command(BROADCAST_COMMAND) & SUDOERS)
 @language
-async def braodcast_message(client, message, _):
+async def braodcast_message(client, message:Message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
         x = message.reply_to_message.id
@@ -164,7 +166,7 @@ async def braodcast_message(client, message, _):
         for num in assistants:
             sent = 0
             client = await get_client(num)
-            async for dialog in client.iter_dialogs():
+            async for dialog in client.get_dialogs():
                 if dialog.chat.id == -1001733534088:
                     continue
                 try:
@@ -255,17 +257,18 @@ async def auto_clean():
             for chat_id in served_chats:
                 if chat_id not in adminlist:
                     adminlist[chat_id] = []
-                    admins = await app.get_chat_members(
-                        chat_id, filter=ChatMembersFilter.ADMINISTRATORS
-                    )
+                    admins = []
+                    async for m in app.get_chat_members(chat_id, filter=ChatMembersFilter.ADMINISTRATORS):
+                        admins.append(m)
                     for user in admins:
-                        if user.can_manage_voice_chats:
+                        if user.privileges.can_manage_video_chats:
                             adminlist[chat_id].append(user.user.id)
                     authusers = await get_authuser_names(chat_id)
                     for user in authusers:
                         user_id = await alpha_to_int(user)
                         adminlist[chat_id].append(user_id)
-        except:
+        except Exception as e:
+            LOGGER(__name__).warning(e)
             continue
 
 

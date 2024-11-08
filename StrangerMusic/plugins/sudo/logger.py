@@ -1,7 +1,7 @@
 
 
 from pyrogram import filters
-
+from pyrogram.types import Message
 import config
 from strings import get_command
 from StrangerMusic import app
@@ -15,7 +15,7 @@ LOGGER_COMMAND = get_command("LOGGER_COMMAND")
 
 @app.on_message(filters.command(LOGGER_COMMAND) & SUDOERS)
 @language
-async def logger(client, message, _):
+async def logger(client, message:Message, _):
     usage = _["log_1"]
     if len(message.command) != 2:
         return await message.reply_text(usage)

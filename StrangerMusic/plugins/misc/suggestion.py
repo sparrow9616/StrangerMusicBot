@@ -4,6 +4,7 @@ import asyncio
 import random
 from datetime import datetime, timedelta
 
+from StrangerMusic.logging import LOGGER
 import config
 from config import clean
 from strings import get_string
@@ -65,7 +66,7 @@ async def dont_do_this():
                             clean[x] = []
                         time_now = datetime.now()
                         put = {
-                            "msg_id": sent.message_id,
+                            "msg_id": sent.id,
                             "timer_after": time_now
                             + timedelta(
                                 minutes=config.CLEANMODE_DELETE_MINS
@@ -73,9 +74,11 @@ async def dont_do_this():
                         }
                         clean[x].append(put)
                         send_to += 1
-                    except:
+                    except Exception as e:
+                        LOGGER(__name__).warning(e)
                         pass
-            except:
+            except Exception as e:
+                LOGGER(__name__).warning(e)
                 pass
 
 

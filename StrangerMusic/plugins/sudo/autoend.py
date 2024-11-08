@@ -1,20 +1,18 @@
 
 
 from pyrogram import filters
-
-import config
+from pyrogram.types import Message
 from strings import get_command
 from StrangerMusic import app
 from StrangerMusic.misc import SUDOERS
 from StrangerMusic.utils.database import autoend_off, autoend_on
-from StrangerMusic.utils.decorators.language import language
 
 # Commands
 AUTOEND_COMMAND = get_command("AUTOEND_COMMAND")
 
 
 @app.on_message(filters.command(AUTOEND_COMMAND) & SUDOERS)
-async def auto_end_stream(client, message):
+async def auto_end_stream(client, message:Message):
     usage = "**Usage:**\n\n/autoend [enable|disable]"
     if len(message.command) != 2:
         return await message.reply_text(usage)

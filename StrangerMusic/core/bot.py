@@ -26,7 +26,6 @@ class StrangerBot(Client):
         get_me = await self.get_me()
         self.username = get_me.username
         self.id = get_me.id
-        bot_username = get_me.username
         try:
             await self.send_message(
                 config.LOG_GROUP_ID, "Bot Started"

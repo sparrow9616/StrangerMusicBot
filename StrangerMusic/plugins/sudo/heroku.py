@@ -13,7 +13,9 @@ import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
 from pyrogram import filters
+from pyrogram.types import Message
 
+from StrangerMusic.logging import LOGGER
 import config
 from strings import get_command
 from StrangerMusic import app
@@ -42,7 +44,7 @@ async def is_heroku():
 
 @app.on_message(filters.command(GETLOG_COMMAND) & SUDOERS)
 @language
-async def log_(client, message, _):
+async def log_(client, message:Message, _):
     try:
         if await is_heroku():
             if HAPP is None:
@@ -66,13 +68,13 @@ async def log_(client, message, _):
             else:
                 return await message.reply_text(_["heroku_2"])
     except Exception as e:
-        print(e)
+        LOGGER(__name__).warning(e)
         await message.reply_text(_["heroku_2"])
 
 
 @app.on_message(filters.command(GETVAR_COMMAND) & SUDOERS)
 @language
-async def varget_(client, message, _):
+async def varget_(client, message:Message, _):
     usage = _["heroku_3"]
     if len(message.command) != 2:
         return await message.reply_text(usage)
@@ -102,7 +104,7 @@ async def varget_(client, message, _):
 
 @app.on_message(filters.command(DELVAR_COMMAND) & SUDOERS)
 @language
-async def vardel_(client, message, _):
+async def vardel_(client, message:Message, _):
     usage = _["heroku_6"]
     if len(message.command) != 2:
         return await message.reply_text(usage)
@@ -130,7 +132,7 @@ async def vardel_(client, message, _):
 
 @app.on_message(filters.command(SETVAR_COMMAND) & SUDOERS)
 @language
-async def set_var(client, message, _):
+async def set_var(client, message:Message, _):
     usage = _["heroku_8"]
     if len(message.command) < 3:
         return await message.reply_text(usage)
@@ -159,7 +161,7 @@ async def set_var(client, message, _):
 
 @app.on_message(filters.command(USAGE_COMMAND) & SUDOERS)
 @language
-async def usage_dynos(client, message, _):
+async def usage_dynos(client, message:Message, _):
     ### Credits CatUserbot
     if await is_heroku():
         if HAPP is None:
@@ -216,7 +218,7 @@ Total Left: `{hours}`**h**  `{minutes}`**m**  [`{percentage}`**%**]"""
 
 @app.on_message(filters.command(UPDATE_COMMAND) & SUDOERS)
 @language
-async def update_(client, message, _):
+async def update_(client, message:Message, _):
     if await is_heroku():
         if HAPP is None:
             return await message.reply_text(_["heroku_1"])
@@ -315,7 +317,7 @@ async def update_(client, message, _):
 
 
 @app.on_message(filters.command(REBOOT_COMMAND) & SUDOERS)
-async def restart_(_, message):
+async def restart_(_, message:Message):
     response = await message.reply_text("Restarting....")
     served_chats = await get_active_chats()
     for x in served_chats:

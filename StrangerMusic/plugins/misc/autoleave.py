@@ -8,7 +8,7 @@ from StrangerMusic import app
 from StrangerMusic.core.call import Stranger, autoend
 from StrangerMusic.utils.database import (get_client, is_active_chat,
                                        is_autoend)
-
+from pyrogram.enums import ChatType
 
 async def auto_leave():
     if config.AUTO_LEAVING_ASSISTANT == str(True):
@@ -24,9 +24,9 @@ async def auto_leave():
                     async for i in client.iter_dialogs():
                         chat_type = i.chat.type
                         if chat_type in [
-                            "supergroup",
-                            "group",
-                            "channel",
+                            ChatType.SUPERGROUP,
+                            ChatType.GROUP,
+                            ChatType.CHANNEL
                         ]:
                             chat_id = i.chat.id
                             if (

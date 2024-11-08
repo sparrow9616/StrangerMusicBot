@@ -3,6 +3,7 @@
 import asyncio
 
 from pyrogram import filters
+from pyrogram.types import Message
 
 import config
 from strings import get_command
@@ -15,7 +16,7 @@ VARS_COMMAND = get_command("VARS_COMMAND")
 
 
 @app.on_message(filters.command(VARS_COMMAND) & SUDOERS)
-async def varsFunc(client, message):
+async def varsFunc(client, message:Message):
     mystic = await message.reply_text(
         "Please wait.. Getting your config"
     )

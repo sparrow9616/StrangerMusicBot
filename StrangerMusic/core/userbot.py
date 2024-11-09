@@ -71,6 +71,9 @@ class Userbot(Client):
                 )
                 sys.exit()
             get_me = await self.one.get_me()
+            if not get_me.username:
+                LOGGER(__name__).error("Please set username to assistants and restart the bot again")
+                sys.exit()
             self.one.username = get_me.username
             self.one.id = get_me.id
             assistantids.append(get_me.id)
@@ -102,6 +105,9 @@ class Userbot(Client):
                 )
                 sys.exit()
             get_me = await self.two.get_me()
+            if not get_me.username:
+                LOGGER(__name__).error("Please set username to assistants and restart the bot again")
+                sys.exit()
             self.two.username = get_me.username
             self.two.id = get_me.id
             assistantids.append(get_me.id)
@@ -133,6 +139,9 @@ class Userbot(Client):
                 )
                 sys.exit()
             get_me = await self.three.get_me()
+            if not get_me.username:
+                LOGGER(__name__).error("Please set username to assistants and restart the bot again")
+                sys.exit()
             self.three.username = get_me.username
             self.three.id = get_me.id
             assistantids.append(get_me.id)
@@ -164,6 +173,9 @@ class Userbot(Client):
                 )
                 sys.exit()
             get_me = await self.four.get_me()
+            if not get_me.username:
+                LOGGER(__name__).error("Please set username to assistants and restart the bot again")
+                sys.exit()
             self.four.username = get_me.username
             self.four.id = get_me.id
             assistantids.append(get_me.id)
@@ -195,6 +207,9 @@ class Userbot(Client):
                 )
                 sys.exit()
             get_me = await self.five.get_me()
+            if not get_me.username:
+                LOGGER(__name__).error("Please set username to assistants and restart the bot again")
+                sys.exit()
             self.five.username = get_me.username
             self.five.id = get_me.id
             assistantids.append(get_me.id)

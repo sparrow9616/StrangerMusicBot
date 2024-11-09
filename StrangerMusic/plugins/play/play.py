@@ -11,8 +11,9 @@ from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
 from pytgcalls.exceptions import NoActiveGroupCall
 from pyrogram.errors import (MessageIdInvalid)
 
+from StrangerMusic.logging import LOGGER
 import config
-from config import adminlist,OWNER_ID,MUSIC_BOT_NAME
+from config import adminlist
 from config import BANNED_USERS, lyrical
 from strings import get_command
 from StrangerMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
@@ -20,7 +21,7 @@ from StrangerMusic import (Apple, Resso, SoundCloud, Spotify, Telegram,
 from StrangerMusic.core.call import Stranger
 from StrangerMusic.utils import seconds_to_min, time_to_seconds
 from StrangerMusic.utils.channelplay import get_channeplayCB
-from StrangerMusic.utils.database import (get_active_chats, is_video_allowed,remove_active_chat, remove_active_video_chat)
+from StrangerMusic.utils.database import ( is_video_allowed)
 from StrangerMusic.utils.decorators.language import languageCB
 from StrangerMusic.utils.decorators.play import PlayWrapper
 from StrangerMusic.utils.formatters import formats
@@ -445,29 +446,9 @@ async def play_commnd(
             query = query.replace("-v", "")
         try:
             details, track_id = await YouTube.track(query)
-        except Exception:
+        except Exception as e:
+            LOGGER(__name__).warning(e)
             await mystic.edit_text(_["play_3"])
-            served_chats = await get_active_chats()
-            for x in served_chats:
-                try:
-                    await app.send_message(
-                    x,
-                    f"{config.MUSIC_BOT_NAME} has just restarted herself. Sorry for the issues.\n\nStart playing after 25 - 30 seconds again.",
-                    )
-                    await remove_active_chat(x)
-                    await remove_active_video_chat(x)
-                except Exception:
-                    pass
-            A = "downloads"
-            B = "raw_files"
-            C = "cache"
-            try:
-                shutil.rmtree(A)
-                shutil.rmtree(B)
-                shutil.rmtree(C)
-            except:
-                pass
-            os.system(f"kill -9 {os.getpid()} && bash start")
         streamtype = "youtube"
     if str(playmode) == "Direct":
         if not plist_type:

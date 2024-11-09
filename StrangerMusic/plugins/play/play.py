@@ -7,7 +7,7 @@ from ast import ExceptHandler
 
 from pyrogram import filters
 from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
-                            Message)
+                            Message,CallbackQuery)
 from pytgcalls.exceptions import NoActiveGroupCall
 from pyrogram.errors import (MessageIdInvalid)
 
@@ -598,7 +598,7 @@ async def play_commnd(
 
 @app.on_callback_query(filters.regex("MusicStream") & ~BANNED_USERS)
 @languageCB
-async def play_music(client, CallbackQuery, _):
+async def play_music(client, CallbackQuery:CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     vidid, user_id, mode, cplay, fplay = callback_request.split("|")
@@ -678,7 +678,7 @@ async def play_music(client, CallbackQuery, _):
 @app.on_callback_query(
     filters.regex("AnonymousAdmin") & ~BANNED_USERS
 )
-async def anonymous_check(client, CallbackQuery):
+async def anonymous_check(client, CallbackQuery:CallbackQuery):
     try:
         await CallbackQuery.answer(
             "You're an Anonymous Admin\n\nGo to your group's setting \n-> Administrators List \n-> Click on your name \n-> uncheck REMAIN ANONYMOUS button there.",
@@ -692,7 +692,7 @@ async def anonymous_check(client, CallbackQuery):
     filters.regex("StrangerPlaylists") & ~BANNED_USERS
 )
 @languageCB
-async def play_playlists_command(client, CallbackQuery, _):
+async def play_playlists_command(client, CallbackQuery:CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     (
@@ -787,7 +787,7 @@ async def play_playlists_command(client, CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("slider") & ~BANNED_USERS)
 @languageCB
-async def slider_queries(client, CallbackQuery, _):
+async def slider_queries(client, CallbackQuery:CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     (

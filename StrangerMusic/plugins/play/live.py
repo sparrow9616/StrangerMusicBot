@@ -1,7 +1,7 @@
 
 
 from pyrogram import filters
-
+from pyrogram.types import CallbackQuery
 from config import BANNED_USERS
 from StrangerMusic import YouTube, app
 from StrangerMusic.utils.channelplay import get_channeplayCB
@@ -11,7 +11,7 @@ from StrangerMusic.utils.stream.stream import stream
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)
 @languageCB
-async def play_live_stream(client, CallbackQuery, _):
+async def play_live_stream(client, CallbackQuery:CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     vidid, user_id, mode, cplay, fplay = callback_request.split("|")

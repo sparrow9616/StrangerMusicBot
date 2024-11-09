@@ -3,8 +3,9 @@
 import asyncio
 
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardMarkup,CallbackQuery
 
+from StrangerMusic.logging import LOGGER
 from config import BANNED_USERS
 from StrangerMusic import app
 from StrangerMusic.utils.database import (get_global_tops,
@@ -22,7 +23,7 @@ loop = asyncio.get_running_loop()
     filters.regex("get_playmarkup") & ~BANNED_USERS
 )
 @languageCB
-async def get_play_markup(client, CallbackQuery, _):
+async def get_play_markup(client, CallbackQuery:CallbackQuery, _):
     try:
         await CallbackQuery.answer()
     except:
@@ -37,7 +38,7 @@ async def get_play_markup(client, CallbackQuery, _):
     filters.regex("get_top_playlists") & ~BANNED_USERS
 )
 @languageCB
-async def get_topz_playlists(client, CallbackQuery, _):
+async def get_topz_playlists(client, CallbackQuery:CallbackQuery, _):
     try:
         await CallbackQuery.answer()
     except:
@@ -50,7 +51,7 @@ async def get_topz_playlists(client, CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("SERVERTOP") & ~BANNED_USERS)
 @languageCB
-async def server_to_play(client, CallbackQuery, _):
+async def server_to_play(client, CallbackQuery:CallbackQuery, _):
     chat_id = CallbackQuery.message.chat.id
     user_name = CallbackQuery.from_user.first_name
     try:
@@ -111,6 +112,7 @@ async def server_to_play(client, CallbackQuery, _):
     try:
         details = await loop.run_in_executor(None, get_stats)
     except Exception as e:
+        LOGGER(__name__).warning(e)
         return
     try:
         await stream(

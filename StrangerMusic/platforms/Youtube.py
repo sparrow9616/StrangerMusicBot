@@ -27,40 +27,91 @@ def cookie_txt_file():
         file.write(f'Choosen File : {cookie_txt_file}\n')
     return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
 
-async def check_file_size(link):
-    async def get_format_info(link):
-        proc = await asyncio.create_subprocess_exec(
-            "yt-dlp",
-            "--cookies", cookie_txt_file(),
-            "-J",
-            link,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE
-        )
-        stdout, stderr = await proc.communicate()
-        if proc.returncode != 0:
-            print(f'Error:\n{stderr.decode()}')
-            return None
-        return json.loads(stdout.decode())
+def get_ytdl_options(ytdl_opts, commamdline=True) -> Union[str, dict, list]:
+    poToken = config.PO_TOKEN
+    if commamdline:
+        if isinstance(ytdl_opts, list):
+            if config.PO_TOKEN_ALLOW == str(True):
+                print(ytdl_opts)
+                ytdl_opts += [f"--extractor-args 'youtube:player-client=web,default;po_token=web+{poToken}'","--cookies",cookie_txt_file()]
+                print(ytdl_opts)
+            elif config.TOKEN_ALLOW == str(True):
+                ytdl_opts += ["--username", "oauth2", "--password", "''"]
+            else:
+                ytdl_opts += ["--cookies", cookie_txt_file()]
+        elif isinstance(ytdl_opts, str):
+            if config.PO_TOKEN_ALLOW == str(True):
+                ytdl_opts += f"--extractor-args 'youtube:player-client=web,default;po_token=web+{poToken}' --cookies {cookie_txt_file}"
+            elif config.TOKEN_ALLOW == str(True):
+                ytdl_opts += "--username oauth2 --password '' "
+            else:
+                ytdl_opts += f"--cookies {cookie_txt_file()}"
+        elif isinstance(ytdl_opts, dict):
+            if config.PO_TOKEN_ALLOW == str(True):
+                ytdl_opts.update({"extractor-args" :f"youtube:player-client=web,default;po_token=web+{poToken}" , "cookiefile": cookie_txt_file()})
+            elif config.TOKEN_ALLOW == str(True):
+                ytdl_opts.update({"username": "oauth2", "password": ""})
+            else:
+                ytdl_opts["cookiefile"] = cookie_txt_file()
+    else:
+        if isinstance(ytdl_opts, list):
+            if config.PO_TOKEN_ALLOW == str(True):
+                ytdl_opts += ["extractor-args",f"youtube:player-client=web,default;po_token=web+{poToken}","cookiefile", cookie_txt_file() ]
+            elif config.TOKEN_ALLOW == str(True):
+                ytdl_opts += ["username", "oauth2", "password", "''"]
+            else:
+                ytdl_opts += ["cookiefile", cookie_txt_file()]
+        elif isinstance(ytdl_opts, str):
+            if config.PO_TOKEN_ALLOW == str(True):
+                ytdl_opts += f"extractor-args youtube:player-client=web,default;po_token=web+{poToken} cookiefile {cookie_txt_file()}"
+            elif config.TOKEN_ALLOW == str(True):
+                ytdl_opts += "username oauth2 password '' "
+            else:
+                ytdl_opts += f"cookiefile {cookie_txt_file()}"
+        elif isinstance(ytdl_opts, dict):
+            if config.PO_TOKEN_ALLOW == str(True):
+                ytdl_opts.update({"extractor-args" : f"youtube:player-client=web,default;po_token=web+{poToken}", "cookiefile" : cookie_txt_file() })
+            elif config.TOKEN_ALLOW == str(True):
+                ytdl_opts.update({"username": "oauth2", "password": ""})
+            else:
+                ytdl_opts["cookiefile"] = cookie_txt_file()
 
-    def parse_size(formats):
-        total_size = 0
-        for format in formats:
-            if 'filesize' in format:
-                total_size += format['filesize']
-        return total_size
+    return ytdl_opts
 
-    info = await get_format_info(link)
-    if info is None:
-        return None
+# async def check_file_size(link):
+#     async def get_format_info(link):
+#         proc = await asyncio.create_subprocess_exec(
+#             "yt-dlp",
+#             "--cookies", cookie_txt_file(),
+#             "-J",
+#             link,
+#             stdout=asyncio.subprocess.PIPE,
+#             stderr=asyncio.subprocess.PIPE
+#         )
+#         stdout, stderr = await proc.communicate()
+#         if proc.returncode != 0:
+#             print(f'Error:\n{stderr.decode()}')
+#             return None
+#         return json.loads(stdout.decode())
+
+#     def parse_size(formats):
+#         total_size = 0
+#         for format in formats:
+#             if 'filesize' in format:
+#                 total_size += format['filesize']
+#         return total_size
+
+#     info = await get_format_info(link)
+#     if info is None:
+#         return None
     
-    formats = info.get('formats', [])
-    if not formats:
-        print("No formats found.")
-        return None
+#     formats = info.get('formats', [])
+#     if not formats:
+#         print("No formats found.")
+#         return None
     
-    total_size = parse_size(formats)
-    return total_size
+#     total_size = parse_size(formats)
+#     return total_size
 
 
 async def shell_cmd(cmd):
@@ -188,13 +239,16 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        proc = await asyncio.create_subprocess_exec(
+        ytld_cmd = [
             "yt-dlp",
-            "--cookies",cookie_txt_file(),
             "-g",
             "-f",
             "best[height<=?720][width<=?1280]",
             f"{link}",
+        ]
+        ytld_cmd = get_ytdl_options(ytld_cmd)
+        proc = await asyncio.create_subprocess_exec(
+            *ytld_cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
         )
@@ -211,14 +265,16 @@ class YouTubeAPI:
             link = self.listbase + link
         if "&" in link:
             link = link.split("&")[0]
+        # playlist = await shell_cmd(
+        #     f"yt-dlp -i --get-id --flat-playlist --cookies {cookie_txt_file()} --playlist-end {limit} --skip-download {link}"
+        # )
         playlist = await shell_cmd(
-            f"yt-dlp -i --get-id --flat-playlist --cookies {cookie_txt_file()} --playlist-end {limit} --skip-download {link}"
+            f"yt-dlp -i --compat-options no-youtube-unavailable-videos "
+            f'--get-id --flat-playlist --playlist-end {limit} --skip-download "{link}" '
+            f"2>/dev/null"
         )
         try:
-            result = playlist.split("\n")
-            for key in result:
-                if key == "":
-                    result.remove(key)
+            result = [key for key in playlist.split("\n") if key]
         except:
             result = []
         return result
@@ -253,7 +309,8 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        ytdl_opts = {"quiet": True,"cookiefile" : cookie_txt_file()}
+        ytdl_opts = {"quiet": True}
+        ytdl_opts = get_ytdl_options(ytdl_opts, False)
         ydl = yt_dlp.YoutubeDL(ytdl_opts)
         with ydl:
             formats_available = []
@@ -326,9 +383,9 @@ class YouTubeAPI:
                 "nocheckcertificate": True,
                 "geo_bypass": True,
                 "quiet": True,
-                "cookiefile" : cookie_txt_file(),
                 "no_warnings": True,
             }
+            ydl_optssx = get_ytdl_options(ydl_optssx , False)
             x = yt_dlp.YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join(
@@ -345,10 +402,10 @@ class YouTubeAPI:
                 "outtmpl": "downloads/%(id)s.%(ext)s",
                 "geo_bypass": True,
                 "nocheckcertificate": True,
-                "cookiefile" : cookie_txt_file(),
                 "quiet": True,
                 "no_warnings": True,
             }
+            ydl_optssx = get_ytdl_options(ydl_optssx , False)
             x = yt_dlp.YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join(
@@ -368,11 +425,11 @@ class YouTubeAPI:
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
-                "cookiefile" : cookie_txt_file(),
                 "no_warnings": True,
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
             }
+            ydl_optssx = get_ytdl_options(ydl_optssx , False)
             x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
 
@@ -384,7 +441,6 @@ class YouTubeAPI:
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "quiet": True,
-                "cookiefile" : cookie_txt_file(),
                 "no_warnings": True,
                 "prefer_ffmpeg": True,
                 "postprocessors": [
@@ -395,6 +451,7 @@ class YouTubeAPI:
                     }
                 ],
             }
+            ydl_optssx = get_ytdl_options(ydl_optssx , False)
             x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
 
@@ -413,32 +470,36 @@ class YouTubeAPI:
                     None, video_dl
                 )
             else:
-                proc = await asyncio.create_subprocess_exec(
+                yt_cmd = [
                     "yt-dlp",
-                    "--cookies",cookie_txt_file(),
                     "-g",
                     "-f",
                     "best[height<=?720][width<=?1280]",
-                    f"{link}",
+                ]
+                yt_cmd += get_ytdl_options([])
+                yt_cmd.append(link)
+                proc = await asyncio.create_subprocess_exec(
+                    *yt_cmd,
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
                 )
                 stdout, stderr = await proc.communicate()
                 if stdout:
                     downloaded_file = stdout.decode().split("\n")[0]
-                    direct = False
+                    direct = None
                 else:
                     # don't know code here check_here
-                    file_size = await check_file_size(link)
-                    if not file_size:
-                      print("None file Size")
-                      return
-                    total_size_mb = file_size / (1024 * 1024)
-                    if total_size_mb > 250:
-                      print(f"File size {total_size_mb:.2f} MB exceeds the 100MB limit.")
-                      return None
-                    direct = True
-                    downloaded_file = await loop.run_in_executor(None, video_dl)
+                    # file_size = await check_file_size(link)
+                    # if not file_size:
+                    #   print("None file Size")
+                    #   return
+                    # total_size_mb = file_size / (1024 * 1024)
+                    # if total_size_mb > 250:
+                    #   print(f"File size {total_size_mb:.2f} MB exceeds the 100MB limit.")
+                    #   return None
+                    # direct = True
+                    # downloaded_file = await loop.run_in_executor(None, video_dl)
+                    return
         else:
             direct = True
             downloaded_file = await loop.run_in_executor(

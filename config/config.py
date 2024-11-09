@@ -127,7 +127,10 @@ TG_VIDEO_FILESIZE_LIMIT = int(
     getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824")
 )  # Remember to give value in bytes
 
-
+# YTDL options keep only one true 
+TOKEN_ALLOW = str(getenv("TOKEN_ALLOW" , False))
+PO_TOKEN_ALLOW = str(getenv("PO_TOKEN_ALLOW" , False))
+PO_TOKEN = getenv("PO_TOKEN" , None)
 
 # If you want your bot to setup the commands automatically in the bot's menu set it to true.
 # Refer to https://i.postimg.cc/Bbg3LQTG/image.png

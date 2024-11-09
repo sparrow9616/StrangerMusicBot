@@ -1,11 +1,12 @@
 
 from pyrogram.enums import ParseMode
+from pyrogram.types import Message
 from config import LOG, LOG_GROUP_ID
 from StrangerMusic import app
 from StrangerMusic.utils.database import is_on_off
 
 
-async def play_logs(message, streamtype):
+async def play_logs(message:Message, streamtype):
     if await is_on_off(LOG):
         if message.chat.username:
             chatusername = f"@{message.chat.username}"

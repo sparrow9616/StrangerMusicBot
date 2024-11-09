@@ -1,4 +1,4 @@
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup,Message
 from pyrogram.enums import ChatMemberStatus
 
 from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE, adminlist
@@ -15,7 +15,7 @@ from StrangerMusic.utils.inline.playlist import botplaylist_markup
 
 
 def PlayWrapper(command):
-    async def wrapper(client, message):
+    async def wrapper(client, message:Message):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(

@@ -1,3 +1,4 @@
+from pyrogram.types import Message,CallbackQuery
 from strings import get_string
 from StrangerMusic.misc import SUDOERS
 from StrangerMusic.utils.database import (get_lang, is_commanddelete_on,
@@ -5,7 +6,7 @@ from StrangerMusic.utils.database import (get_lang, is_commanddelete_on,
 
 
 def language(mystic):
-    async def wrapper(_, message, **kwargs):
+    async def wrapper(_, message:Message, **kwargs):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
@@ -27,7 +28,7 @@ def language(mystic):
 
 
 def languageCB(mystic):
-    async def wrapper(_, CallbackQuery, **kwargs):
+    async def wrapper(_, CallbackQuery:CallbackQuery, **kwargs):
         if await is_maintenance() is False:
             if CallbackQuery.from_user.id not in SUDOERS:
                 return await CallbackQuery.answer(
@@ -45,7 +46,7 @@ def languageCB(mystic):
 
 
 def LanguageStart(mystic):
-    async def wrapper(_, message, **kwargs):
+    async def wrapper(_, message:Message, **kwargs):
         try:
             language = await get_lang(message.chat.id)
             language = get_string(language)

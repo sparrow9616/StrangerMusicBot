@@ -1,8 +1,9 @@
+from pyrogram.types import CallbackQuery
 from StrangerMusic import app
 from StrangerMusic.utils.database import get_cmode
 
 
-async def get_channeplayCB(_, command, CallbackQuery):
+async def get_channeplayCB(_, command, CallbackQuery:CallbackQuery):
     if command == "c":
         chat_id = await get_cmode(CallbackQuery.message.chat.id)
         if chat_id is None:

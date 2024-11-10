@@ -8,6 +8,7 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 from youtubesearchpython.__future__ import VideosSearch
 
+from StrangerMusic.utils.database.mongodatabase import add_private_chat
 import config
 from config import BANNED_USERS
 from config.config import OWNER_ID
@@ -235,12 +236,15 @@ welcome_group = 2
 @app.on_message(filters.new_chat_members, group=welcome_group)
 async def welcome(client, message: Message):
     chat_id = message.chat.id
+    count = await app.get_chat_members_count(chat_id)
     if config.PRIVATE_BOT_MODE == str(True):
-        if not await is_served_private_chat(message.chat.id):
+        if count < config.PRIVATE_BOT_MODE_MEM or not await is_served_private_chat(message.chat.id):
             await message.reply_text(
                 "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
             )
             return await app.leave_chat(message.chat.id)
+        elif count > config.PRIVATE_BOT_MODE_MEM:
+            await add_private_chat(chat_id)
     else:
         await add_served_chat(chat_id)
     for member in message.new_chat_members:

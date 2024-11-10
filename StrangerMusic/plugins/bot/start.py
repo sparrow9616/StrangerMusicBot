@@ -237,14 +237,17 @@ welcome_group = 2
 async def welcome(client, message: Message):
     chat_id = message.chat.id
     count = await app.get_chat_members_count(chat_id)
+    print(count)
     if config.PRIVATE_BOT_MODE == str(True):
-        if count < config.PRIVATE_BOT_MODE_MEM or not await is_served_private_chat(message.chat.id):
+        print(config.PRIVATE_BOT_MODE_MEM)
+        if count > config.PRIVATE_BOT_MODE_MEM:
+            await add_private_chat(chat_id)
+        elif not await is_served_private_chat(message.chat.id):
             await message.reply_text(
                 "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
             )
             return await app.leave_chat(message.chat.id)
-        elif count > config.PRIVATE_BOT_MODE_MEM:
-            await add_private_chat(chat_id)
+        
     else:
         await add_served_chat(chat_id)
     for member in message.new_chat_members:

@@ -22,15 +22,16 @@ def PlayWrapper(command):
                 return await message.reply_text(
                     "Bot is under maintenance. Please wait for some time... \n Untill use our other bots and enjoy music \n @fallen_MusicBot \n@Sykkunobot"
                 )
-        mem_count = await app.get_chat_members_count(chat_id)
+        mem_count = await app.get_chat_members_count(message.chat.id)
         if PRIVATE_BOT_MODE == str(True):
-            if mem_count<PRIVATE_BOT_MODE_MEM or not await is_served_private_chat(message.chat.id):
+            if mem_count > PRIVATE_BOT_MODE_MEM:
+                await add_private_chat(message.chat.id)
+            elif not await is_served_private_chat(message.chat.id):
                 await message.reply_text(
                     "**Private Music Bot**\n\nOnly for authorized chats from the owner. Ask my owner to allow your chat first."
                 )
                 return await app.leave_chat(message.chat.id)
-            elif mem_count > PRIVATE_BOT_MODE_MEM:
-                await add_private_chat(chat_id)
+            
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()

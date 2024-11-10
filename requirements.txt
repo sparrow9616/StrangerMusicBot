@@ -13,11 +13,7 @@ pillow
 psutil
 py-tgcalls==0.9.7
 pykeyboard
-<<<<<<< HEAD
 # pyrogram
-=======
-#pyrogram
->>>>>>> 256b89110dc6125f342396d993d55f0c9297c49b
 git+https://github.com/KurimuzonAkuma/pyrogram.git
 python-dotenv
 pyyaml

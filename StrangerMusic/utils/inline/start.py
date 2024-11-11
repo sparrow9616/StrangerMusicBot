@@ -6,6 +6,17 @@ from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
 from StrangerMusic import app
 
 
+def pvt_bot(OWNER):
+    buttons = [
+        [
+            InlineKeyboardButton(
+                text="• ᴏᴡɴᴇʀ •", user_id=OWNER
+            )
+        ]
+    ]
+    return buttons
+
+
 def start_pannel(_):
     buttons = [
         [

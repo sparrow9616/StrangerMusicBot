@@ -68,6 +68,7 @@ async def init():
     LOGGER("StrangerMusic").info("Stranger Music Bot Started Successfully")
     await idle()
     await app.stop()
+    await userbot.stop()
 
 
 if __name__ == "__main__":
